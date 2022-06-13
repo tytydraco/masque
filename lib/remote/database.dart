@@ -10,4 +10,12 @@ class Database {
     final db = FirebaseFirestore.instance;
     await db.collection(roomId).add(message.toMap());
   }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getMessageStream() async* {
+    final db = FirebaseFirestore.instance;
+    yield* db
+        .collection(roomId)
+        .orderBy('timestamp', descending: true)
+        .snapshots();
+  }
 }
