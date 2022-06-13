@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "997175548753",
+    "project_id": "masque-ae887",
+    "storage_bucket": "masque-ae887.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997175548753:android:33acd1ff45a7ca5643d170",
+        "android_client_info": {
+          "package_name": "com.draco.masque"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "997175548753-oeh7ar6pfl8hnr2n6k95kcm31he45r87.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBf6PXfTph8BiqiYTWtSF-hfbiQCyIiRIY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "997175548753-oeh7ar6pfl8hnr2n6k95kcm31he45r87.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "997175548753-skdt09jj7s6nq26pu3d9pr0r5fcj51fi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.draco.masque"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
