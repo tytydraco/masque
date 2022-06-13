@@ -1,13 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:masque/models/message_model.dart';
 import 'package:masque/widgets/message_widget.dart';
 
 class ChatLogWidget extends StatefulWidget {
-  final List<MessageModel> messages;
+  final String roomId;
 
   const ChatLogWidget({
     Key? key,
-    required this.messages,
+    required this.roomId,
   }) : super(key: key);
 
   @override
@@ -15,14 +16,35 @@ class ChatLogWidget extends StatefulWidget {
 }
 
 class _ChatLogWidgetState extends State<ChatLogWidget> {
+  MessageModel mapToMessage(Map<String, dynamic> data) {
+    return MessageModel(
+      timeInMillis: data['timestamp'],
+      screenName: data['screenName'],
+      content: data['content'],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: widget.messages.length,
-      itemBuilder: (context, index) {
-        final message = widget.messages[index];
-        return MessageWidget(message: message);
-      },
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection(widget.roomId).snapshots(),
+      builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasData) {
+          final messages = snapshot.data!.docs.map((e) {
+            final data = e.data()! as Map<String, dynamic>;
+            return mapToMessage(data);
+          }).toList();
+
+          return ListView.builder(
+            itemCount: messages.length,
+            itemBuilder: (context, index) => MessageWidget(message: messages[index]),
+          );
+        } else if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        } else {
+          return const CircularProgressIndicator();
+        }
+      }
     );
   }
 }

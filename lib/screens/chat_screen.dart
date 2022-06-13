@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:masque/models/message_model.dart';
 import 'package:masque/remote/database.dart';
 import 'package:masque/widgets/chat_log_widget.dart';
 
@@ -30,19 +29,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: database.getMessages(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              final data = snapshot.data as List<MessageModel>;
-              return ChatLogWidget(messages: data);
-            } else if (snapshot.hasError) {
-              return Text(snapshot.error.toString());
-            } else {
-              return const CircularProgressIndicator();
-            }
-          },
-        ),
+        child: ChatLogWidget(roomId: widget.roomId),
       ),
     );
   }
