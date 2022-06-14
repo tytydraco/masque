@@ -17,10 +17,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
         CheckboxSettingWidget(
           label: 'Save login information',
           id: saveLoginPrefKey,
+          defaultValue: saveLoginDefaultValue,
         ),
         CheckboxSettingWidget(
           label: 'Allow multi-line input',
           id: multilinePrefKey,
+          defaultValue: multilineDefaultValue,
         ),
       ],
     );
