@@ -50,8 +50,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 },
                 controller: screenNameController,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Screen name'
+                  border: OutlineInputBorder(),
+                  hintText: 'Screen name'
                 ),
               ),
             ),
@@ -68,8 +68,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 },
                 controller: roomIdController,
                 decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Room id'
+                  border: OutlineInputBorder(),
+                  hintText: 'Room id'
                 ),
                 onFieldSubmitted: (_) => _onLogin(),
               ),
