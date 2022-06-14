@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:masque/constants/pref_keys.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginFormWidget extends StatefulWidget {
   final Function(String, String) onLogin;
@@ -17,8 +19,9 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   final roomIdController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
-  void _onLogin() {
+  Future _onLogin() async {
     if (formKey.currentState!.validate()) {
+      await setSavedLogin();
       widget.onLogin(
         screenNameController.text,
         roomIdController.text,
@@ -26,8 +29,27 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     }
   }
 
+  Future loadSavedLogin() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
+      final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
+      final roomId = sharedPrefs.getString(roomIdPrefKey) ?? '';
+      screenNameController.text = screenName;
+      roomIdController.text = roomId;
+    }
+  }
+
+  Future setSavedLogin() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
+      sharedPrefs.setString(screenNamePrefKey, screenNameController.text);
+      sharedPrefs.setString(roomIdPrefKey, roomIdController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    loadSavedLogin();
     return Container(
       constraints: const BoxConstraints(maxWidth: 300),
       child: Form(
@@ -50,8 +72,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 },
                 controller: screenNameController,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Screen name'
+                    border: OutlineInputBorder(),
+                    hintText: 'Screen name'
                 ),
               ),
             ),
@@ -68,8 +90,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 },
                 controller: roomIdController,
                 decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Room id'
+                    border: OutlineInputBorder(),
+                    hintText: 'Room id'
                 ),
                 onFieldSubmitted: (_) => _onLogin(),
               ),
