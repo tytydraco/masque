@@ -2,6 +2,9 @@
 
 An anonymous chat client.
 
+## Web app
+[Click here](https://tytydraco.github.io/masque/build/web/#/)
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
