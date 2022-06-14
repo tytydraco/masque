@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:masque/models/message_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MessageWidget extends StatelessWidget {
   final MessageModel message;
@@ -11,9 +12,12 @@ class MessageWidget extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  void onTapLink(String text, String? href, String title) {
+  Future onTapLink(String text, String? href, String title) async {
     if (href != null) {
-      
+      await launchUrl(
+        Uri.parse(href),
+        mode: LaunchMode.externalApplication
+      );
     }
   }
 
