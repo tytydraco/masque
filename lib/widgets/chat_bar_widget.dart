@@ -13,16 +13,16 @@ class ChatBarWidget extends StatefulWidget {
 }
 
 class _ChatBarWidgetState extends State<ChatBarWidget> {
-  final messageFocusNode = FocusNode();
   final messageController = TextEditingController();
   var isSending = false;
 
+  /// Clear text, disallow sending until finished
   Future _sendMessage() async {
+    final text = messageController.text;
+    messageController.clear();
     setState(() => isSending = true);
-    await widget.onSend(messageController.text);
+    await widget.onSend(text);
     setState(() => isSending = false);
-    messageController.text = '';
-    messageFocusNode.requestFocus();
   }
 
   @override
@@ -30,8 +30,6 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: TextField(
-        readOnly: isSending,
-        focusNode: messageFocusNode,
         autofocus: true,
         controller: messageController,
         maxLines: null,
@@ -43,6 +41,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
           ),
         ),
         onSubmitted: (_) => !isSending ? _sendMessage() : null,
+        onEditingComplete: () {},
         textInputAction: TextInputAction.send,
       ),
     );
