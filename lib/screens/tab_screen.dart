@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/screens/login_screen.dart';
+import 'package:masque/screens/settings_screen.dart';
 
 class TabScreen extends StatefulWidget {
   const TabScreen({Key? key}) : super(key: key);
@@ -13,7 +14,7 @@ class _TabScreenState extends State<TabScreen> {
 
   final bottomNavWidgets = const [
     LoginScreen(),
-    Text('to do'),
+    SettingsScreen(),
   ];
 
   @override
