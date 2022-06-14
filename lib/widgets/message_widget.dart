@@ -15,26 +15,29 @@ class MessageWidget extends StatelessWidget {
     final date = DateTime.fromMillisecondsSinceEpoch(message.timeInMillis);
     final prettyDate = DateFormat.yMd().add_jm().format(date);
 
-    return Padding(
-      padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Expanded(
-                child: Text(
-                  message.screenName,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
+    return InkWell(
+      onTap: () {},
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8, top: 4, bottom: 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    message.screenName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              Text(prettyDate),
-            ],
-          ),
-          Text(message.content),
-        ],
+                Text(prettyDate),
+              ],
+            ),
+            SelectableText(message.content),
+          ],
+        ),
       ),
     );
   }
