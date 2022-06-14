@@ -34,6 +34,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
         focusNode: messageFocusNode,
         autofocus: true,
         controller: messageController,
+        maxLines: null,
         decoration: InputDecoration(
           hintText: 'Message',
           suffixIcon: IconButton(
