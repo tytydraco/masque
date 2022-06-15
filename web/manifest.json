@@ -1,6 +1,6 @@
 {
-    "name": "masque",
-    "short_name": "masque",
+    "name": "Masque",
+    "short_name": "Masque",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
