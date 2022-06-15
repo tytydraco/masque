@@ -34,30 +34,35 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      initialData: multilineDefaultValue,
-      future: getMultilineAllowed(),
-      builder: (context, snapshot) {
-        final multilineAllowed = snapshot.data as bool;
-        return Padding(
-          padding: const EdgeInsets.all(8),
-          child: TextField(
-            autofocus: true,
-            controller: messageController,
-            maxLines: multilineAllowed ? null : 1,
-            decoration: InputDecoration(
-              hintText: 'Message',
-              suffixIcon: IconButton(
-                onPressed: !isSending ? _sendMessage : null,
-                icon: const Icon(Icons.send),
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: FutureBuilder(
+        future: getMultilineAllowed(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final multilineAllowed = snapshot.data as bool;
+            return TextField(
+              autofocus: true,
+              controller: messageController,
+              maxLines: multilineAllowed ? null : 1,
+              decoration: InputDecoration(
+                hintText: 'Message',
+                suffixIcon: IconButton(
+                  onPressed: !isSending ? _sendMessage : null,
+                  icon: const Icon(Icons.send),
+                ),
               ),
-            ),
-            onSubmitted: (_) => !isSending ? _sendMessage() : null,
-            onEditingComplete: () {},
-            textInputAction: TextInputAction.send,
-          ),
-        );
-      },
+              onSubmitted: (_) => !isSending ? _sendMessage() : null,
+              onEditingComplete: () {},
+              textInputAction: multilineAllowed
+                  ? TextInputAction.newline
+                  : TextInputAction.send,
+            );
+          } else {
+            return Container();
+          }
+        },
+      ),
     );
   }
 }
