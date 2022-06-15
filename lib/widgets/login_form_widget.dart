@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
+import 'package:masque/utils/field_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginFormWidget extends StatefulWidget {
@@ -47,22 +48,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     }
   }
 
-  String? validateScreenName(String? input) {
-    if (input == null || input.isEmpty) {
-      return 'Must have a screen name';
-    } else {
-      return null;
-    }
-  }
-
-  String? validateRoomId(String? input) {
-    if (input == null || input.isEmpty) {
-      return 'Invalid room id';
-    } else {
-      return null;
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     loadSavedLogin();
@@ -79,7 +64,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               child: TextFormField(
                 autofocus: true,
                 textInputAction: TextInputAction.next,
-                validator: validateScreenName,
+                validator: FieldValidators.validateScreenName,
                 controller: screenNameController,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),
@@ -91,7 +76,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
               child: TextFormField(
                 textInputAction: TextInputAction.done,
-                validator: validateRoomId,
+                validator: FieldValidators.validateRoomId,
                 controller: roomIdController,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(),

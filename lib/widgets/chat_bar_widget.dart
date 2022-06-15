@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
+import 'package:masque/utils/field_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatBarWidget extends StatefulWidget {
@@ -16,6 +17,7 @@ class ChatBarWidget extends StatefulWidget {
 
 class _ChatBarWidgetState extends State<ChatBarWidget> {
   final messageController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
   var isSending = false;
 
   Future<bool> getMultilineAllowed() async {
@@ -25,11 +27,13 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
 
   /// Clear text, disallow sending until finished
   Future _sendMessage() async {
-    final text = messageController.text;
-    messageController.clear();
-    setState(() => isSending = true);
-    await widget.onSend(text);
-    setState(() => isSending = false);
+    if (formKey.currentState!.validate()) {
+      final text = messageController.text;
+      messageController.clear();
+      setState(() => isSending = true);
+      await widget.onSend(text);
+      setState(() => isSending = false);
+    }
   }
 
   @override
@@ -41,22 +45,26 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final multilineAllowed = snapshot.data as bool;
-            return TextField(
-              autofocus: true,
-              controller: messageController,
-              maxLines: multilineAllowed ? null : 1,
-              decoration: InputDecoration(
-                hintText: 'Message',
-                suffixIcon: IconButton(
-                  onPressed: !isSending ? _sendMessage : null,
-                  icon: const Icon(Icons.send),
+            return Form(
+              key: formKey,
+              child: TextFormField(
+                autofocus: true,
+                controller: messageController,
+                maxLines: multilineAllowed ? null : 1,
+                decoration: InputDecoration(
+                  hintText: 'Message',
+                  suffixIcon: IconButton(
+                    onPressed: !isSending ? _sendMessage : null,
+                    icon: const Icon(Icons.send),
+                  ),
                 ),
+                onFieldSubmitted: (_) => !isSending ? _sendMessage() : null,
+                onEditingComplete: () {},
+                textInputAction: multilineAllowed
+                    ? TextInputAction.newline
+                    : TextInputAction.send,
+                validator: FieldValidators.validateMessage,
               ),
-              onSubmitted: (_) => !isSending ? _sendMessage() : null,
-              onEditingComplete: () {},
-              textInputAction: multilineAllowed
-                  ? TextInputAction.newline
-                  : TextInputAction.send,
             );
           } else {
             return Container();
