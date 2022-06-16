@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
+import 'package:masque/remote/database.dart';
 import 'package:masque/utils/field_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -27,6 +28,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         screenNameController.text,
         roomIdController.text,
       );
+    }
+  }
+
+  Future _onDeleteRoom() async {
+    if (formKey.currentState!.validate()) {
+      final database = Database(roomIdController.text);
+      await database.deleteRoom();
     }
   }
 
@@ -89,6 +97,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
               child: ElevatedButton(
                 onPressed: _onLogin,
+                onLongPress: _onDeleteRoom,
                 child: const Text('Enter'),
               ),
             )

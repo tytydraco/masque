@@ -6,6 +6,21 @@ class Database {
 
   Database(this.roomId);
 
+  Future deleteRoom() async {
+    final db = FirebaseFirestore.instance;
+    final collection = db.collection(roomId);
+
+    while (true) {
+      final docBatch = await collection.limit(20).get();
+      if (docBatch.size == 0) {
+        break;
+      }
+      for (final doc in docBatch.docs) {
+        await doc.reference.delete();
+      }
+    }
+  }
+
   Future sendMessage(MessageModel message) async {
     final db = FirebaseFirestore.instance;
     await db.collection(roomId).add(message.toMap());
