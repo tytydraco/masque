@@ -124,7 +124,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 child: ElevatedButton(
                   onPressed: _onLogin,
                   onLongPress: _onDeleteRoom,
-                  child: const Text('Enter'),
+                  child: const Padding(
+                    padding: EdgeInsets.only(top: 16, bottom: 16),
+                    child: Text('Log in'),
+                  ),
                 ),
               )
             ],
