@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: ThemeData(
         primarySwatch: Colors.green,
-        brightness: Brightness.dark
+        brightness: Brightness.dark,
       ),
       home: const TabScreen(),
     );
