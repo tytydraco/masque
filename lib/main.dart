@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:masque/firebase_options.dart';
-import 'package:masque/screens/login_screen.dart';
 import 'package:masque/screens/tab_screen.dart';
 
 void main() async {

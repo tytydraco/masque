@@ -17,7 +17,7 @@ class ChatLogWidget extends StatefulWidget {
 }
 
 class _ChatLogWidgetState extends State<ChatLogWidget> {
-  late final Database database;
+  late final database = Database(widget.roomId);
 
   MessageModel mapToMessage(Map<String, dynamic> data) {
     return MessageModel(
@@ -25,12 +25,6 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
       screenName: data['screenName'],
       content: data['content'],
     );
-  }
-
-  @override
-  void initState() {
-    database = Database(widget.roomId);
-    super.initState();
   }
 
   @override

@@ -19,13 +19,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late final Database database;
-
-  @override
-  void initState() {
-    database = Database(widget.roomId);
-    super.initState();
-  }
+  late final database = Database(widget.roomId);
 
   @override
   Widget build(BuildContext context) {
