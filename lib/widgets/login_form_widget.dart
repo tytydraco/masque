@@ -79,6 +79,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     }
   }
 
+  Future<bool> getObscureRoomId() async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getBool(obscureRoomIdPrefKey) ?? obscureRoomIdDefaultValue;
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
@@ -106,18 +111,26 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: TextFormField(
-                  textInputAction: TextInputAction.done,
-                  validator: FieldValidators.validateRoomId,
-                  controller: roomIdController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Room id'
-                  ),
-                  onFieldSubmitted: (_) => _onLogin(),
-                ),
+              FutureBuilder(
+                initialData: obscureRoomIdDefaultValue,
+                future: getObscureRoomId(),
+                builder: (context, snapshot) {
+                  final obscure = snapshot.data as bool;
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
+                    child: TextFormField(
+                      textInputAction: TextInputAction.done,
+                      validator: FieldValidators.validateRoomId,
+                      controller: roomIdController,
+                      decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Room id'
+                      ),
+                      onFieldSubmitted: (_) => _onLogin(),
+                      obscureText: obscure,
+                    ),
+                  );
+                }
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 8, right: 8, top: 8),

@@ -24,6 +24,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           id: multilinePrefKey,
           defaultValue: multilineDefaultValue,
         ),
+        CheckboxSettingWidget(
+          label: 'Obscure room id',
+          id: obscureRoomIdPrefKey,
+          defaultValue: obscureRoomIdDefaultValue,
+        ),
       ],
     );
   }
