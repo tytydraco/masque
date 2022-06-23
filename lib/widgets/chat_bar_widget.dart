@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
-import 'package:masque/utils/field_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ChatBarWidget extends StatefulWidget {
@@ -63,7 +62,14 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
                 textInputAction: multilineAllowed
                     ? TextInputAction.newline
                     : TextInputAction.send,
-                validator: FieldValidators.validateMessage,
+                validator: (input) {
+                  if (input == null || input.isEmpty) {
+                    return 'Required';
+                  } else if (input.length > 2000) {
+                    return 'Too long';
+                  }
+                  return null;
+                },
               ),
             );
           } else {

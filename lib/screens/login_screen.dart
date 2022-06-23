@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/screens/chat_screen.dart';
-import 'package:masque/widgets/login_form_widget.dart';
+import 'package:masque/widgets/custom_login_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: LoginFormWidget(
+        child: CustomLoginWidget(
           onLogin: enterChat,
         ),
       ),

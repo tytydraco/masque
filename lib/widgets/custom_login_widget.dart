@@ -1,35 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:login_widget/login_form_widget.dart';
+import 'package:login_widget/login_field_widget.dart';
+import 'package:login_widget/login_widget.dart';
 import 'package:masque/constants/pref_keys.dart';
+import 'package:masque/login_form_field_validators/room_id_validator.dart';
+import 'package:masque/login_form_field_validators/screen_name_validator.dart';
 import 'package:masque/remote/database.dart';
-import 'package:masque/utils/field_validators.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LoginFormWidget extends StatefulWidget {
+class CustomLoginWidget extends StatefulWidget {
   final Function(String, String) onLogin;
 
-  const LoginFormWidget({
+  const CustomLoginWidget({
     Key? key,
     required this.onLogin,
   }) : super(key: key);
 
   @override
-  State<LoginFormWidget> createState() => _LoginFormWidgetState();
+  State<CustomLoginWidget> createState() => _CustomLoginWidgetState();
 }
 
-class _LoginFormWidgetState extends State<LoginFormWidget> {
+class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   final screenNameController = TextEditingController();
   final roomIdController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   var isLoading = false;
 
   Future _onLogin() async {
-    if (formKey.currentState!.validate()) {
-      await setSavedLogin();
-      widget.onLogin(
-        screenNameController.text,
-        roomIdController.text,
-      );
-    }
+    await setSavedLogin();
+    widget.onLogin(
+      screenNameController.text,
+      roomIdController.text,
+    );
   }
 
   Future _onDeleteRoom() async {
@@ -92,59 +94,37 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       loadSavedLogin();
       return Container(
         constraints: const BoxConstraints(maxWidth: 300),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: TextFormField(
-                  autofocus: true,
-                  textInputAction: TextInputAction.next,
-                  validator: FieldValidators.validateScreenName,
-                  controller: screenNameController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Screen name'
-                  ),
-                ),
-              ),
-              FutureBuilder(
-                initialData: obscureRoomIdDefaultValue,
-                future: getObscureRoomId(),
-                builder: (context, snapshot) {
-                  final obscure = snapshot.data as bool;
-                  return Padding(
-                    padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                    child: TextFormField(
-                      textInputAction: TextInputAction.done,
-                      validator: FieldValidators.validateRoomId,
+        child: FutureBuilder(
+          future: getObscureRoomId(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final obscure = snapshot.data as bool;
+              return LoginWidget(
+                form: LoginFormWidget(
+                  formKey: formKey,
+                  loginFields: [
+                    LoginFieldWidget(
+                      autofocus: true,
+                      hintText: 'Screen name',
+                      controller: screenNameController,
+                      loginFieldValidator: ScreenNameValidator(),
+                    ),
+                    LoginFieldWidget(
+                      hintText: 'Room id',
                       controller: roomIdController,
-                      decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
-                          hintText: 'Room id'
-                      ),
-                      onFieldSubmitted: (_) => _onLogin(),
+                      loginFieldValidator: RoomIdValidator(),
                       obscureText: obscure,
                     ),
-                  );
-                }
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
-                child: ElevatedButton(
-                  onPressed: _onLogin,
-                  onLongPress: _onDeleteRoom,
-                  child: const Padding(
-                    padding: EdgeInsets.only(top: 16, bottom: 16),
-                    child: Text('Log in'),
-                  ),
+                  ],
                 ),
-              )
-            ],
-          ),
+                loginButtonText: 'Log in',
+                onSubmit: _onLogin,
+                onLongPress: _onDeleteRoom,
+              );
+            } else {
+              return Container();
+            }
+          },
         ),
       );
     }
