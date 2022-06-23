@@ -3,8 +3,6 @@ import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_field_widget.dart';
 import 'package:login_widget/login_widget.dart';
 import 'package:masque/constants/pref_keys.dart';
-import 'package:masque/login_form_field_validators/room_id_validator.dart';
-import 'package:masque/login_form_field_validators/screen_name_validator.dart';
 import 'package:masque/remote/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -107,13 +105,29 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
                       autofocus: true,
                       hintText: 'Screen name',
                       controller: screenNameController,
-                      loginFieldValidator: ScreenNameValidator(),
+                      validator: (input) {
+                        if (input == null || input.isEmpty) {
+                          return 'Required';
+                        } else if (input.length > 64) {
+                          return 'Too long';
+                        }
+                        return null;
+                      },
                     ),
                     LoginFieldWidget(
                       hintText: 'Room id',
                       controller: roomIdController,
-                      loginFieldValidator: RoomIdValidator(),
                       obscureText: obscure,
+                      validator: (input) {
+                        if (input == null || input.isEmpty) {
+                          return 'Required';
+                        } else if (input.length > 300) {
+                          return 'Too long';
+                        } else if (input.contains('/') || input.contains('.')) {
+                          return 'Invalid characters';
+                        }
+                        return null;
+                      },
                     ),
                   ],
                 ),
