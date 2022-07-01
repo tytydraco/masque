@@ -24,15 +24,16 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   final formKey = GlobalKey<FormState>();
   var isLoading = false;
 
-  Future _onLogin() async {
+  Future<String?> _onLogin() async {
     await setSavedLogin();
     widget.onLogin(
       screenNameController.text,
       roomIdController.text,
     );
+    return null;
   }
 
-  Future _onDeleteRoom() async {
+  Future<String?> _onDeleteRoom() async {
     if (formKey.currentState!.validate()) {
       final dialog = AlertDialog(
         title: const Text('Delete'),
@@ -59,9 +60,10 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
         builder: (context) => dialog,
       );
     }
+    return null;
   }
 
-  Future loadSavedLogin() async {
+  Future<void> loadSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
       final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
@@ -71,7 +73,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
     }
   }
 
-  Future setSavedLogin() async {
+  Future<void> setSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
       sharedPrefs.setString(screenNamePrefKey, screenNameController.text);
