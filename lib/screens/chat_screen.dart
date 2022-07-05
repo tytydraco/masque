@@ -19,7 +19,7 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-  late final database = Database(widget.roomId);
+  late final _database = Database(widget.roomId);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class _ChatScreenState extends State<ChatScreen> {
         screenName: widget.screenName,
         content: text
       );
-      await database.sendMessage(message);
+      await _database.sendMessage(message);
     }
 
     return Scaffold(

@@ -12,7 +12,7 @@ class MessageWidget extends StatelessWidget {
     required this.message,
   }) : super(key: key);
 
-  Future onTapLink(String text, String? href, String title) async {
+  Future _onTapLink(String text, String? href, String title) async {
     if (href != null) {
       await launchUrl(
         Uri.parse(href),
@@ -52,7 +52,7 @@ class MessageWidget extends StatelessWidget {
             MarkdownBody(
               selectable: true,
               data: message.content,
-              onTapLink: onTapLink,
+              onTapLink: _onTapLink,
             ),
           ],
         ),

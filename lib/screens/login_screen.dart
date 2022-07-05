@@ -10,7 +10,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  void enterChat(String screenName, String roomId) {
+  void _enterChat(String screenName, String roomId) {
     Navigator
         .of(context)
         .push(
@@ -28,7 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: CustomLoginWidget(
-          onLogin: enterChat,
+          onLogin: _enterChat,
         ),
       ),
     );

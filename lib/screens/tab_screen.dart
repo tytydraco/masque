@@ -10,9 +10,9 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
-  var currentTabIndex = 0;
+  var _currentTabIndex = 0;
 
-  final bottomNavWidgets = const [
+  final _bottomNavWidgets = const [
     LoginScreen(),
     SettingsScreen(),
   ];
@@ -27,13 +27,13 @@ class _TabScreenState extends State<TabScreen> {
 
     return Scaffold(
       body: Center(
-        child: bottomNavWidgets[currentTabIndex]
+        child: _bottomNavWidgets[_currentTabIndex]
       ),
       appBar: isMobile ? AppBar(
         title: const Text('Masque'),
       ) : null,
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentTabIndex,
+        currentIndex: _currentTabIndex,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.login),
@@ -45,7 +45,7 @@ class _TabScreenState extends State<TabScreen> {
           ),
         ],
         onTap: (index) {
-          setState(() => currentTabIndex = index);
+          setState(() => _currentTabIndex = index);
         },
       ),
     );

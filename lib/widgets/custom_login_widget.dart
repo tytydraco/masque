@@ -19,22 +19,22 @@ class CustomLoginWidget extends StatefulWidget {
 }
 
 class _CustomLoginWidgetState extends State<CustomLoginWidget> {
-  final screenNameController = TextEditingController();
-  final roomIdController = TextEditingController();
-  final formKey = GlobalKey<FormState>();
-  var isLoading = false;
+  final _screenNameController = TextEditingController();
+  final _roomIdController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  var _isLoading = false;
 
   Future<String?> _onLogin() async {
     await setSavedLogin();
     widget.onLogin(
-      screenNameController.text,
-      roomIdController.text,
+      _screenNameController.text,
+      _roomIdController.text,
     );
     return null;
   }
 
   Future<String?> _onDeleteRoom() async {
-    if (formKey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       final dialog = AlertDialog(
         title: const Text('Delete'),
         content: const Text('Are you sure you want to permanently delete this room?'),
@@ -46,10 +46,10 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
           TextButton(
             onPressed: () async {
               Navigator.of(context, rootNavigator: true).pop();
-              final database = Database(roomIdController.text);
-              setState(() => isLoading = true);
+              final database = Database(_roomIdController.text);
+              setState(() => _isLoading = true);
               await database.deleteRoom();
-              setState(() => isLoading = false);
+              setState(() => _isLoading = false);
             },
             child: const Text('Confirm'),
           ),
@@ -68,16 +68,16 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
     if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
       final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
       final roomId = sharedPrefs.getString(roomIdPrefKey) ?? '';
-      screenNameController.text = screenName;
-      roomIdController.text = roomId;
+      _screenNameController.text = screenName;
+      _roomIdController.text = roomId;
     }
   }
 
   Future<void> setSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
-      sharedPrefs.setString(screenNamePrefKey, screenNameController.text);
-      sharedPrefs.setString(roomIdPrefKey, roomIdController.text);
+      sharedPrefs.setString(screenNamePrefKey, _screenNameController.text);
+      sharedPrefs.setString(roomIdPrefKey, _roomIdController.text);
     }
   }
 
@@ -88,7 +88,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isLoading) {
+    if (_isLoading) {
       return const CircularProgressIndicator();
     } else {
       loadSavedLogin();
@@ -101,12 +101,12 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
               final obscure = snapshot.data as bool;
               return LoginWidget(
                 form: LoginFormWidget(
-                  formKey: formKey,
+                  formKey: _formKey,
                   loginFields: [
                     LoginFieldWidget(
                       autofocus: true,
                       hintText: 'Screen name',
-                      controller: screenNameController,
+                      controller: _screenNameController,
                       validator: (input) {
                         if (input == null || input.isEmpty) {
                           return 'Required';
@@ -118,7 +118,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
                     ),
                     LoginFieldWidget(
                       hintText: 'Room id',
-                      controller: roomIdController,
+                      controller: _roomIdController,
                       obscureText: obscure,
                       validator: (input) {
                         if (input == null || input.isEmpty) {

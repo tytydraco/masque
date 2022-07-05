@@ -18,12 +18,12 @@ class CheckboxSettingWidget extends StatefulWidget {
 }
 
 class _CheckboxSettingWidgetState extends State<CheckboxSettingWidget> {
-  Future<bool> getValue() async {
+  Future<bool> _getValue() async {
     final sharedPrefs = await SharedPreferences.getInstance();
     return sharedPrefs.getBool(widget.id) ?? widget.defaultValue;
   }
 
-  Future setValue(bool value) async {
+  Future _setValue(bool value) async {
     final sharedPrefs = await SharedPreferences.getInstance();
     sharedPrefs.setBool(widget.id, value);
   }
@@ -31,7 +31,7 @@ class _CheckboxSettingWidgetState extends State<CheckboxSettingWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: getValue(),
+      future: _getValue(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final value = snapshot.data as bool;
@@ -39,7 +39,7 @@ class _CheckboxSettingWidgetState extends State<CheckboxSettingWidget> {
             title: Text(widget.label),
             value: value,
             onChanged: (newValue) {
-              setValue(newValue!);
+              _setValue(newValue!);
               setState(() {});
             },
           );

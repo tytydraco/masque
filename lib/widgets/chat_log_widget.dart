@@ -17,9 +17,9 @@ class ChatLogWidget extends StatefulWidget {
 }
 
 class _ChatLogWidgetState extends State<ChatLogWidget> {
-  late final database = Database(widget.roomId);
+  late final _database = Database(widget.roomId);
 
-  MessageModel mapToMessage(Map<String, dynamic> data) {
+  MessageModel _mapToMessage(Map<String, dynamic> data) {
     return MessageModel(
       timeInMillis: data['timestamp'],
       screenName: data['screenName'],
@@ -30,12 +30,12 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: database.getMessageStream(),
+      stream: _database.getMessageStream(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
           final messages = snapshot.data!.docs.map((e) {
             final data = e.data()! as Map<String, dynamic>;
-            return mapToMessage(data);
+            return _mapToMessage(data);
           }).toList();
 
           return Expanded(
