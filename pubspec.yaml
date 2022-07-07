@@ -53,7 +53,9 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+
   web_deploy: ^0.0.3
+  basil: ^1.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -104,3 +106,13 @@ flutter_icons:
   macos: true
   web: true
   image_path: "assets/icon.png"
+
+basil:
+  generate_icons:
+    cmds: [ 'flutter pub run flutter_launcher_icons_maker:main' ]
+  build:
+    cmds: [
+      'flutter pub run web_deploy:main',
+      'flutter build apk',
+      'flutter build appbundle',
+    ]
