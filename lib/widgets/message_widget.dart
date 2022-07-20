@@ -4,19 +4,22 @@ import 'package:intl/intl.dart';
 import 'package:masque/models/message_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Display a message and metadata from a [MessageModel].
 class MessageWidget extends StatelessWidget {
+  /// Create a new [MessageWidget] given a [message].
+  const MessageWidget({
+    super.key,
+    required this.message,
+  });
+
+  /// The message to display.
   final MessageModel message;
 
-  const MessageWidget({
-    Key? key,
-    required this.message,
-  }) : super(key: key);
-
-  Future _onTapLink(String text, String? href, String title) async {
+  Future<void> _onTapLink(String text, String? href, String title) async {
     if (href != null) {
       await launchUrl(
         Uri.parse(href),
-        mode: LaunchMode.externalApplication
+        mode: LaunchMode.externalApplication,
       );
     }
   }

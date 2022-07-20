@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '997175548753',
     projectId: 'masque-ae887',
     storageBucket: 'masque-ae887.appspot.com',
-    iosClientId: '997175548753-skdt09jj7s6nq26pu3d9pr0r5fcj51fi.apps.googleusercontent.com',
+    iosClientId:
+        '997175548753-skdt09jj7s6nq26pu3d9pr0r5fcj51fi.apps.googleusercontent.com',
     iosBundleId: 'com.draco.masque',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '997175548753',
     projectId: 'masque-ae887',
     storageBucket: 'masque-ae887.appspot.com',
-    iosClientId: '997175548753-skdt09jj7s6nq26pu3d9pr0r5fcj51fi.apps.googleusercontent.com',
+    iosClientId:
+        '997175548753-skdt09jj7s6nq26pu3d9pr0r5fcj51fi.apps.googleusercontent.com',
     iosBundleId: 'com.draco.masque',
   );
 }

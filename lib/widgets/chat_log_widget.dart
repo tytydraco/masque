@@ -4,13 +4,16 @@ import 'package:masque/models/message_model.dart';
 import 'package:masque/remote/database.dart';
 import 'package:masque/widgets/message_widget.dart';
 
+/// A live feed of the messages flowing in from this [roomId].
 class ChatLogWidget extends StatefulWidget {
-  final String roomId;
-
+  /// Create a new [ChatLogWidget] given a [roomId].
   const ChatLogWidget({
-    Key? key,
+    super.key,
     required this.roomId,
-  }) : super(key: key);
+  });
+
+  /// The referenced room id.
+  final String roomId;
 
   @override
   State<ChatLogWidget> createState() => _ChatLogWidgetState();
@@ -21,9 +24,9 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
 
   MessageModel _mapToMessage(Map<String, dynamic> data) {
     return MessageModel(
-      timeInMillis: data['timestamp'],
-      screenName: data['screenName'],
-      content: data['content'],
+      timeInMillis: data['timestamp'] as int,
+      screenName: data['screenName'] as String,
+      content: data['content'] as String,
     );
   }
 
@@ -42,7 +45,8 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
             child: ListView.builder(
               reverse: true,
               itemCount: messages.length,
-              itemBuilder: (context, index) => MessageWidget(message: messages[index]),
+              itemBuilder: (context, index) =>
+                  MessageWidget(message: messages[index]),
             ),
           );
         } else if (snapshot.hasError) {
@@ -50,7 +54,7 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
         } else {
           return const CircularProgressIndicator();
         }
-      }
+      },
     );
   }
 }

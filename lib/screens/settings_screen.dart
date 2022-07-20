@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
 import 'package:masque/widgets/checkbox_setting_widget.dart';
 
+/// The user configurable settings screen.
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({Key? key}) : super(key: key);
+  /// Create a new [SettingsScreen].
+  const SettingsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,18 +13,15 @@ class SettingsScreen extends StatelessWidget {
       children: const [
         CheckboxSettingWidget(
           label: 'Save login information',
-          id: saveLoginPrefKey,
-          defaultValue: saveLoginDefaultValue,
+          id: PrefKeys.saveLoginPrefKey,
         ),
         CheckboxSettingWidget(
           label: 'Allow multi-line input',
-          id: multilinePrefKey,
-          defaultValue: multilineDefaultValue,
+          id: PrefKeys.multilinePrefKey,
         ),
         CheckboxSettingWidget(
           label: 'Obscure room id',
-          id: obscureRoomIdPrefKey,
-          defaultValue: obscureRoomIdDefaultValue,
+          id: PrefKeys.obscureRoomIdPrefKey,
         ),
       ],
     );

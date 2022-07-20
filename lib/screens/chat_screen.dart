@@ -4,15 +4,20 @@ import 'package:masque/remote/database.dart';
 import 'package:masque/widgets/chat_bar_widget.dart';
 import 'package:masque/widgets/chat_log_widget.dart';
 
+/// Screen to send and receive messages given a [screenName] and a [roomId].
 class ChatScreen extends StatefulWidget {
-  final String screenName;
-  final String roomId;
-
+  /// Create a new [ChatScreen] given a [screenName] and a [roomId].
   const ChatScreen({
-    Key? key,
+    super.key,
     required this.screenName,
-    required this.roomId
-  }) : super(key: key);
+    required this.roomId,
+  });
+
+  /// The user's display name.
+  final String screenName;
+
+  /// The referenced room id.
+  final String roomId;
 
   @override
   State<ChatScreen> createState() => _ChatScreenState();
@@ -23,20 +28,16 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Future sendMessage(String text) async {
-      final message = MessageModel.now(
-        screenName: widget.screenName,
-        content: text
-      );
+    Future<void> sendMessage(String text) async {
+      final message =
+          MessageModel.now(screenName: widget.screenName, content: text);
       await _database.sendMessage(message);
     }
 
     return Scaffold(
       body: Center(
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ChatLogWidget(roomId: widget.roomId),
             ChatBarWidget(onSend: sendMessage),

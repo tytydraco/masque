@@ -2,13 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// An interactive chat input box.
 class ChatBarWidget extends StatefulWidget {
-  final Future Function(String) onSend;
-
+  /// Create a new [ChatBarWidget] given an [onSend] callback.
   const ChatBarWidget({
-    Key? key,
-    required this.onSend
-  }) : super(key: key);
+    super.key,
+    required this.onSend,
+  });
+
+  /// A callback given a [String] for when the user submits a message.
+  final Future<void> Function(String) onSend;
 
   @override
   State<ChatBarWidget> createState() => _ChatBarWidgetState();
@@ -21,11 +24,11 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
 
   Future<bool> _getMultilineAllowed() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(multilinePrefKey) ?? multilineDefaultValue;
+    return sharedPrefs.getBool(PrefKeys.multilinePrefKey) ?? false;
   }
 
   /// Clear text, disallow sending until finished
-  Future _sendMessage() async {
+  Future<void> _sendMessage() async {
     if (_formKey.currentState!.validate()) {
       final text = _messageController.text;
       _messageController.clear();
@@ -43,7 +46,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
         future: _getMultilineAllowed(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            final multilineAllowed = snapshot.data as bool;
+            final multilineAllowed = snapshot.data! as bool;
             return Form(
               key: _formKey,
               child: TextFormField(

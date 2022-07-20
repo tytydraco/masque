@@ -8,11 +8,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(const Masque());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+/// The main client.
+class Masque extends StatelessWidget {
+  /// Create a new [Masque] instance.
+  const Masque({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_field_widget.dart';
+import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_widget.dart';
 import 'package:masque/constants/pref_keys.dart';
 import 'package:masque/remote/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A login widget using the [LoginWidget] package.
 class CustomLoginWidget extends StatefulWidget {
-  final Function(String, String) onLogin;
-
+  /// Create a new [CustomLoginWidget] given an [onLogin] callback.
   const CustomLoginWidget({
-    Key? key,
+    super.key,
     required this.onLogin,
-  }) : super(key: key);
+  });
+
+  /// Callback given a screen name and room id once logged in.
+  final void Function(String screenName, String roomId) onLogin;
 
   @override
   State<CustomLoginWidget> createState() => _CustomLoginWidgetState();
@@ -37,7 +40,9 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
     if (_formKey.currentState!.validate()) {
       final dialog = AlertDialog(
         title: const Text('Delete'),
-        content: const Text('Are you sure you want to permanently delete this room?'),
+        content: const Text(
+          'Are you sure you want to permanently delete this room?',
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
@@ -55,7 +60,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
           ),
         ],
       );
-      showDialog(
+      await showDialog<void>(
         context: context,
         builder: (context) => dialog,
       );
@@ -65,9 +70,10 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> loadSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
-      final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
-      final roomId = sharedPrefs.getString(roomIdPrefKey) ?? '';
+    if (sharedPrefs.getBool(PrefKeys.saveLoginPrefKey) ?? false) {
+      final screenName =
+          sharedPrefs.getString(PrefKeys.screenNamePrefKey) ?? '';
+      final roomId = sharedPrefs.getString(PrefKeys.roomIdPrefKey) ?? '';
       _screenNameController.text = screenName;
       _roomIdController.text = roomId;
     }
@@ -75,15 +81,21 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> setSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(saveLoginPrefKey) ?? saveLoginDefaultValue) {
-      sharedPrefs.setString(screenNamePrefKey, _screenNameController.text);
-      sharedPrefs.setString(roomIdPrefKey, _roomIdController.text);
+    if (sharedPrefs.getBool(PrefKeys.saveLoginPrefKey) ?? false) {
+      await sharedPrefs.setString(
+        PrefKeys.screenNamePrefKey,
+        _screenNameController.text,
+      );
+      await sharedPrefs.setString(
+        PrefKeys.roomIdPrefKey,
+        _roomIdController.text,
+      );
     }
   }
 
   Future<bool> getObscureRoomId() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(obscureRoomIdPrefKey) ?? obscureRoomIdDefaultValue;
+    return sharedPrefs.getBool(PrefKeys.obscureRoomIdPrefKey) ?? false;
   }
 
   @override
@@ -98,7 +110,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
           future: getObscureRoomId(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              final obscure = snapshot.data as bool;
+              final obscure = snapshot.data! as bool;
               return LoginWidget(
                 form: LoginFormWidget(
                   formKey: _formKey,
