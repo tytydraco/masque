@@ -7,9 +7,9 @@ import 'package:url_launcher/url_launcher.dart';
 /// Display a message and metadata from a [MessageModel].
 class MessageWidget extends StatelessWidget {
   /// Create a new [MessageWidget] given a [message].
-  const MessageWidget({
+  const MessageWidget(
+    this.message, {
     super.key,
-    required this.message,
   });
 
   /// The message to display.

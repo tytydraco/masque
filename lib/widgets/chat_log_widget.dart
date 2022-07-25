@@ -45,8 +45,7 @@ class _ChatLogWidgetState extends State<ChatLogWidget> {
             child: ListView.builder(
               reverse: true,
               itemCount: messages.length,
-              itemBuilder: (context, index) =>
-                  MessageWidget(message: messages[index]),
+              itemBuilder: (context, index) => MessageWidget(messages[index]),
             ),
           );
         } else if (snapshot.hasError) {
