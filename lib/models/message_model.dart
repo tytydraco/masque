@@ -29,7 +29,7 @@ class MessageModel {
   final String content;
 
   /// Convert this metadata into a map.
-  Map<String, dynamic> toMap() => {
+  Map<String, Object> toMap() => {
         'timestamp': timeInMillis,
         'screenName': screenName,
         'content': content,
