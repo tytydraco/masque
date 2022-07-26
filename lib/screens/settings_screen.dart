@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:masque/constants/pref_keys.dart';
-import 'package:masque/widgets/checkbox_setting_widget.dart';
+import 'package:sp_settings/fields/settings_field.dart';
+import 'package:sp_settings/fields/switch_settings_field.dart';
+import 'package:sp_settings/settings_category.dart';
+import 'package:sp_settings/settings_list.dart';
 
 /// The user configurable settings screen.
 class SettingsScreen extends StatelessWidget {
@@ -11,18 +14,37 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: const [
-        CheckboxSettingWidget(
-          label: 'Save login information',
-          id: PrefKeys.saveLoginPrefKey,
-        ),
-        CheckboxSettingWidget(
-          label: 'Allow multi-line input',
-          id: PrefKeys.multilinePrefKey,
-        ),
-        CheckboxSettingWidget(
-          label: 'Obscure room id',
-          id: PrefKeys.obscureRoomIdPrefKey,
-        ),
+        SettingsCategory(
+          title: 'Settings',
+          settingsList: SettingsList([
+            SwitchSettingsField(
+              SettingsField(
+                title: 'Save login information',
+                description: 'Preserve the screen name and room id after '
+                    'logging in.',
+                icon: Icons.person_add,
+              ),
+              prefKey: PrefKeys.saveLoginPrefKey,
+            ),
+            SwitchSettingsField(
+              SettingsField(
+                title: 'Allow multi-line input',
+                description: 'Allow submitting lines of text instead of just '
+                    'one.',
+                icon: Icons.wrap_text,
+              ),
+              prefKey: PrefKeys.multilinePrefKey,
+            ),
+            SwitchSettingsField(
+              SettingsField(
+                title: 'Obscure room id',
+                description: 'Hide the room id as if it were a password field.',
+                icon: Icons.password,
+              ),
+              prefKey: PrefKeys.obscureRoomIdPrefKey,
+            ),
+          ]),
+        )
       ],
     );
   }
