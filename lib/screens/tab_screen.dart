@@ -21,14 +21,14 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final platform = Theme.of(context).platform;
-    final isMobile = platform == TargetPlatform.android ||
-        platform == TargetPlatform.iOS ||
-        platform == TargetPlatform.fuchsia;
+    final _platform = Theme.of(context).platform;
+    final _isMobile = _platform == TargetPlatform.android ||
+        _platform == TargetPlatform.iOS ||
+        _platform == TargetPlatform.fuchsia;
 
     return Scaffold(
       body: Center(child: _bottomNavWidgets[_currentTabIndex]),
-      appBar: isMobile
+      appBar: _isMobile
           ? AppBar(
               title: const Text('Masque'),
             )
