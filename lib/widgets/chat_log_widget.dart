@@ -3,24 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:masque/models/message_model.dart';
 import 'package:masque/remote/database.dart';
 import 'package:masque/widgets/message_widget.dart';
+import 'package:provider/provider.dart';
 
-/// A live feed of the messages flowing in from this [roomId].
+/// A live feed of the messages flowing.
 class ChatLogWidget extends StatefulWidget {
-  /// Create a new [ChatLogWidget] given a [roomId].
-  const ChatLogWidget({
-    super.key,
-    required this.roomId,
-  });
-
-  /// The referenced room id.
-  final String roomId;
+  /// Create a new [ChatLogWidget].
+  const ChatLogWidget({super.key});
 
   @override
   State<ChatLogWidget> createState() => _ChatLogWidgetState();
 }
 
 class _ChatLogWidgetState extends State<ChatLogWidget> {
-  late final _database = Database(widget.roomId);
+  late final _database = context.read<Database>();
 
   MessageModel _mapToMessage(Map<String, dynamic> data) {
     return MessageModel(

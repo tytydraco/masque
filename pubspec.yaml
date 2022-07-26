@@ -21,7 +21,6 @@ dependencies:
 dev_dependencies:
   basil: ^1.0.9
   flutter_launcher_icons_maker: ^0.10.2
-  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
   very_good_analysis: ^3.0.1

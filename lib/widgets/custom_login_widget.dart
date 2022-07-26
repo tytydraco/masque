@@ -3,19 +3,20 @@ import 'package:login_widget/login_field_widget.dart';
 import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_widget.dart';
 import 'package:masque/constants/pref_keys.dart';
+import 'package:masque/models/session_model.dart';
 import 'package:masque/remote/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A login widget using the [LoginWidget] package.
 class CustomLoginWidget extends StatefulWidget {
-  /// Create a new [CustomLoginWidget] given an [onLogin] callback.
+  /// Create a new [CustomLoginWidget] given an [onSubmit] callback.
   const CustomLoginWidget({
     super.key,
-    required this.onLogin,
+    required this.onSubmit,
   });
 
-  /// Callback given a screen name and room id once logged in.
-  final void Function(String screenName, String roomId) onLogin;
+  /// Callback given a [SessionModel] once logged in.
+  final void Function(SessionModel session) onSubmit;
 
   @override
   State<CustomLoginWidget> createState() => _CustomLoginWidgetState();
@@ -29,9 +30,11 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<String?> _onLogin() async {
     await setSavedLogin();
-    widget.onLogin(
-      _screenNameController.text,
-      _roomIdController.text,
+    widget.onSubmit(
+      SessionModel(
+        screenName: _screenNameController.text,
+        roomId: _roomIdController.text,
+      ),
     );
     return null;
   }

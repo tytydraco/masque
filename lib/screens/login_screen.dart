@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:masque/models/session_model.dart';
 import 'package:masque/screens/chat_screen.dart';
 import 'package:masque/widgets/custom_login_widget.dart';
+import 'package:provider/provider.dart';
 
 /// The main login screen.
 class LoginScreen extends StatefulWidget {
@@ -12,12 +14,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  void _enterChat(String screenName, String roomId) {
+  void _enterChat(SessionModel session) {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (context) => ChatScreen(
-          screenName: screenName,
-          roomId: roomId,
+        builder: (context) => Provider.value(
+          value: session,
+          child: const ChatScreen(),
         ),
       ),
     );
@@ -28,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Center(
         child: CustomLoginWidget(
-          onLogin: _enterChat,
+          onSubmit: _enterChat,
         ),
       ),
     );
