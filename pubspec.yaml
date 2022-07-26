@@ -1,7 +1,7 @@
 name: masque
 description: An anonymous chat client.
 publish_to: 'none'
-version: 1.0.2
+version: 1.0.2+2
 
 environment:
   sdk: ">=2.17.3 <3.0.0"
@@ -16,6 +16,7 @@ dependencies:
   login_widget: ^1.0.1
   provider: ^6.0.3
   shared_preferences: ^2.0.15
+  sp_settings: ^1.0.5
   url_launcher: ^6.1.3
 
 dev_dependencies:
