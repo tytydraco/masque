@@ -23,10 +23,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   Future<void> _sendMessage(String text) async {
     final message =
-    MessageModel.now(screenName: _session.screenName, content: text);
+        MessageModel.now(screenName: _session.screenName, content: text);
     await _database.sendMessage(message);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Provider.value(

@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
                     'logging in.',
                 icon: Icons.person_add,
               ),
-              prefKey: PrefKeys.saveLoginPrefKey,
+              prefKey: saveLoginPrefKey,
             ),
             SwitchSettingsField(
               SettingsField(
@@ -33,7 +33,7 @@ class SettingsScreen extends StatelessWidget {
                     'one.',
                 icon: Icons.wrap_text,
               ),
-              prefKey: PrefKeys.multilinePrefKey,
+              prefKey: multilinePrefKey,
             ),
             SwitchSettingsField(
               SettingsField(
@@ -41,7 +41,7 @@ class SettingsScreen extends StatelessWidget {
                 description: 'Hide the room id as if it were a password field.',
                 icon: Icons.password,
               ),
-              prefKey: PrefKeys.obscureRoomIdPrefKey,
+              prefKey: obscureRoomIdPrefKey,
             ),
           ]),
         )
