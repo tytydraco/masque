@@ -20,7 +20,6 @@ dependencies:
   url_launcher: ^6.1.3
 
 dev_dependencies:
-  basil: ^1.0.9
   flutter_launcher_icons_maker: ^0.10.2
   flutter_test:
     sdk: flutter
@@ -37,13 +36,3 @@ flutter_icons:
   macos: true
   web: true
   image_path: "assets/icon.png"
-
-basil:
-  generate_icons:
-    cmds: [ 'flutter pub run flutter_launcher_icons_maker:main' ]
-  build:
-    cmds: [
-      'flutter pub run web_deploy:main',
-      'flutter build apk',
-      'flutter build appbundle',
-    ]
