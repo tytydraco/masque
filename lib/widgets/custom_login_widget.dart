@@ -73,10 +73,9 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> loadSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(PrefKeys.saveLoginPrefKey) ?? false) {
-      final screenName =
-          sharedPrefs.getString(PrefKeys.screenNamePrefKey) ?? '';
-      final roomId = sharedPrefs.getString(PrefKeys.roomIdPrefKey) ?? '';
+    if (sharedPrefs.getBool(saveLoginPrefKey) ?? true) {
+      final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
+      final roomId = sharedPrefs.getString(roomIdPrefKey) ?? '';
       _screenNameController.text = screenName;
       _roomIdController.text = roomId;
     }
@@ -84,13 +83,13 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> setSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(PrefKeys.saveLoginPrefKey) ?? false) {
+    if (sharedPrefs.getBool(saveLoginPrefKey) ?? true) {
       await sharedPrefs.setString(
-        PrefKeys.screenNamePrefKey,
+        screenNamePrefKey,
         _screenNameController.text,
       );
       await sharedPrefs.setString(
-        PrefKeys.roomIdPrefKey,
+        roomIdPrefKey,
         _roomIdController.text,
       );
     }
@@ -98,7 +97,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<bool> getObscureRoomId() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(PrefKeys.obscureRoomIdPrefKey) ?? false;
+    return sharedPrefs.getBool(obscureRoomIdPrefKey) ?? true;
   }
 
   @override

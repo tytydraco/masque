@@ -24,7 +24,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
 
   Future<bool> _getMultilineAllowed() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(PrefKeys.multilinePrefKey) ?? false;
+    return sharedPrefs.getBool(multilinePrefKey) ?? false;
   }
 
   /// Clear text, disallow sending until finished
