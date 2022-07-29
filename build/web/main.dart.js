@@ -68955,7 +68955,7 @@ return A.X(A.lF(),$async$vs)
 case 2:n=b.a
 m=J.ae(n)
 l=A.ft(m.h(n,"save_login"))
-if(l===!0){p=A.bf(m.h(n,"screen_name"))
+if(l!==!1){p=A.bf(m.h(n,"screen_name"))
 if(p==null)p=""
 o=A.bf(m.h(n,"room_id"))
 if(o==null)o=""
@@ -68968,7 +68968,7 @@ while(true)switch(s){case 0:s=2
 return A.X(A.lF(),$async$lY)
 case 2:p=b
 o=A.ft(J.ai(p.a,"save_login"))
-s=o===!0?3:4
+s=o!==!1?3:4
 break
 case 3:s=5
 return A.X(p.zi("String","screen_name",q.d.a.a),$async$lY)
@@ -68983,7 +68983,7 @@ n=J
 s=3
 return A.X(A.lF(),$async$rd)
 case 3:p=o.ft(n.ai(b.a,"obscure_room_id"))
-q=p===!0
+q=p!==!1
 s=1
 break
 case 1:return A.U(q,r)}})
