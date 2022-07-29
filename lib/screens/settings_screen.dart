@@ -25,6 +25,7 @@ class SettingsScreen extends StatelessWidget {
                 icon: Icons.person_add,
               ),
               prefKey: PrefKeys.saveLoginPrefKey,
+              initialValue: true,
             ),
             SwitchSettingsField(
               SettingsField(
@@ -42,6 +43,7 @@ class SettingsScreen extends StatelessWidget {
                 icon: Icons.password,
               ),
               prefKey: PrefKeys.obscureRoomIdPrefKey,
+              initialValue: true,
             ),
           ]),
         )
