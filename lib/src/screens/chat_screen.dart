@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:masque/models/message_model.dart';
-import 'package:masque/models/session_model.dart';
-import 'package:masque/remote/database.dart';
-import 'package:masque/widgets/chat_bar_widget.dart';
-import 'package:masque/widgets/chat_log_widget.dart';
+import 'package:masque/src/models/message_model.dart';
+import 'package:masque/src/models/session_model.dart';
+import 'package:masque/src/remote/database.dart';
+import 'package:masque/src/widgets/chat_bar_widget.dart';
+import 'package:masque/src/widgets/chat_log_widget.dart';
 import 'package:provider/provider.dart';
 
 /// Screen to send and receive messages.

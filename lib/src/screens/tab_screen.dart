@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:masque/screens/login_screen.dart';
-import 'package:masque/screens/settings_screen.dart';
+import 'package:masque/src/screens/login_screen.dart';
+import 'package:masque/src/screens/settings_screen.dart';
 
 /// Screen to hold the main menu screens.
 class TabScreen extends StatefulWidget {

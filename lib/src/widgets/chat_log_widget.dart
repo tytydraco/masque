@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:masque/models/message_model.dart';
-import 'package:masque/remote/database.dart';
-import 'package:masque/widgets/message_widget.dart';
+import 'package:masque/src/models/message_model.dart';
+import 'package:masque/src/remote/database.dart';
+import 'package:masque/src/widgets/message_widget.dart';
 import 'package:provider/provider.dart';
 
 /// A live feed of the messages flowing.

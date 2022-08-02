@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:masque/models/session_model.dart';
-import 'package:masque/screens/chat_screen.dart';
-import 'package:masque/widgets/custom_login_widget.dart';
+import 'package:masque/src/models/session_model.dart';
+import 'package:masque/src/screens/chat_screen.dart';
+import 'package:masque/src/widgets/custom_login_widget.dart';
 import 'package:provider/provider.dart';
 
 /// The main login screen.

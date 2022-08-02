@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
-import 'package:masque/models/message_model.dart';
+import 'package:masque/src/models/message_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Display a message and metadata from a [MessageModel].

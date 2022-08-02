@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:masque/models/message_model.dart';
+import 'package:masque/src/models/message_model.dart';
 
 /// Manage the Firestore database given a [roomId].
 class Database {
