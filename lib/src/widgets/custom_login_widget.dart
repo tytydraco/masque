@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_widget/login_field_widget.dart';
 import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_widget.dart';
-import 'package:masque/src/constants/pref_keys.dart';
+import 'package:masque/src/data/pref_keys.dart';
 import 'package:masque/src/models/session_model.dart';
 import 'package:masque/src/remote/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';

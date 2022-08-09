@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masque/src/constants/pref_keys.dart';
+import 'package:masque/src/data/pref_keys.dart';
 import 'package:sp_settings/fields/settings_field.dart';
 import 'package:sp_settings/fields/switch_settings_field.dart';
 import 'package:sp_settings/settings_category.dart';
