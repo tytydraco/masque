@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:login_widget/login_field_widget.dart';
 import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_widget.dart';
-import 'package:masque/src/data/pref_keys.dart';
+import 'package:masque/src/data/shared_objects.dart';
 import 'package:masque/src/models/session_model.dart';
 import 'package:masque/src/remote/database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -73,9 +73,10 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> loadSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(saveLoginPrefKey) ?? true) {
-      final screenName = sharedPrefs.getString(screenNamePrefKey) ?? '';
-      final roomId = sharedPrefs.getString(roomIdPrefKey) ?? '';
+    if (sharedPrefs.getBool(SharedObjects.saveLoginPrefKey) ?? true) {
+      final screenName =
+          sharedPrefs.getString(SharedObjects.screenNamePrefKey) ?? '';
+      final roomId = sharedPrefs.getString(SharedObjects.roomIdPrefKey) ?? '';
       _screenNameController.text = screenName;
       _roomIdController.text = roomId;
     }
@@ -83,13 +84,13 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<void> setSavedLogin() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(saveLoginPrefKey) ?? true) {
+    if (sharedPrefs.getBool(SharedObjects.saveLoginPrefKey) ?? true) {
       await sharedPrefs.setString(
-        screenNamePrefKey,
+        SharedObjects.screenNamePrefKey,
         _screenNameController.text,
       );
       await sharedPrefs.setString(
-        roomIdPrefKey,
+        SharedObjects.roomIdPrefKey,
         _roomIdController.text,
       );
     }
@@ -97,7 +98,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
 
   Future<bool> getObscureRoomId() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(obscureRoomIdPrefKey) ?? true;
+    return sharedPrefs.getBool(SharedObjects.obscureRoomIdPrefKey) ?? true;
   }
 
   @override

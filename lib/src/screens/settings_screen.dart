@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masque/src/data/pref_keys.dart';
+import 'package:masque/src/data/shared_objects.dart';
 import 'package:sp_settings/fields/settings_field.dart';
 import 'package:sp_settings/fields/switch_settings_field.dart';
 import 'package:sp_settings/settings_category.dart';
@@ -24,7 +24,7 @@ class SettingsScreen extends StatelessWidget {
                     'logging in.',
                 icon: Icons.person_add,
               ),
-              prefKey: saveLoginPrefKey,
+              prefKey: SharedObjects.saveLoginPrefKey,
               initialValue: true,
             ),
             SwitchSettingsField(
@@ -34,7 +34,7 @@ class SettingsScreen extends StatelessWidget {
                     'one.',
                 icon: Icons.wrap_text,
               ),
-              prefKey: multilinePrefKey,
+              prefKey: SharedObjects.multilinePrefKey,
             ),
             SwitchSettingsField(
               SettingsField(
@@ -42,7 +42,7 @@ class SettingsScreen extends StatelessWidget {
                 description: 'Hide the room id as if it were a password field.',
                 icon: Icons.password,
               ),
-              prefKey: obscureRoomIdPrefKey,
+              prefKey: SharedObjects.obscureRoomIdPrefKey,
               initialValue: true,
             ),
           ]),

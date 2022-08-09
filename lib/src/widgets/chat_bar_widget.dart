@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:masque/src/data/pref_keys.dart';
+import 'package:masque/src/data/shared_objects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// An interactive chat input box.
@@ -24,7 +24,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
 
   Future<bool> _getMultilineAllowed() async {
     final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(multilinePrefKey) ?? false;
+    return sharedPrefs.getBool(SharedObjects.multilinePrefKey) ?? false;
   }
 
   /// Clear text, disallow sending until finished
