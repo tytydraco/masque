@@ -74,14 +74,14 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   }
 
   Future<void> loadSavedLogin() async {
-    if ((await _sharedObjects.saveLogin.get())!) {
-      _screenNameController.text = (await _sharedObjects.screenName.get())!;
-      _roomIdController.text = (await _sharedObjects.roomId.get())!;
+    if (await _sharedObjects.saveLogin.getNotNull()) {
+      _screenNameController.text = await _sharedObjects.screenName.getNotNull();
+      _roomIdController.text = await _sharedObjects.roomId.getNotNull();
     }
   }
 
   Future<void> setSavedLogin() async {
-    if ((await _sharedObjects.saveLogin.get())!) {
+    if (await _sharedObjects.saveLogin.getNotNull()) {
       await _sharedObjects.screenName.set(_screenNameController.text);
       await _sharedObjects.roomId.set(_roomIdController.text);
     }
@@ -96,7 +96,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
       return Container(
         constraints: const BoxConstraints(maxWidth: 300),
         child: FutureBuilder(
-          future: _sharedObjects.obscureRoomId.get(),
+          future: _sharedObjects.obscureRoomId.getNotNull(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final obscure = snapshot.data! as bool;

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/src/data/shared_objects.dart';
-import 'package:sp_settings/fields/settings_field.dart';
-import 'package:sp_settings/fields/switch_settings_field.dart';
-import 'package:sp_settings/settings_category.dart';
-import 'package:sp_settings/settings_list.dart';
+import 'package:sp_settings/sp_settings.dart';
 
 /// The user configurable settings screen.
 class SettingsScreen extends StatelessWidget {

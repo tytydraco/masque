@@ -40,7 +40,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FutureBuilder(
-        future: _sharedObjects.multiline.get(),
+        future: _sharedObjects.multiline.getNotNull(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final multilineAllowed = snapshot.data! as bool;
