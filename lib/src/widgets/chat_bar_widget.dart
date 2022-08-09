@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:masque/src/data/shared_objects.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 /// An interactive chat input box.
 class ChatBarWidget extends StatefulWidget {
@@ -18,14 +18,11 @@ class ChatBarWidget extends StatefulWidget {
 }
 
 class _ChatBarWidgetState extends State<ChatBarWidget> {
+  late final _sharedObjects = context.read<SharedObjects>();
+
   final _messageController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var _isSending = false;
-
-  Future<bool> _getMultilineAllowed() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(SharedObjects.multilinePrefKey) ?? false;
-  }
 
   /// Clear text, disallow sending until finished
   Future<void> _sendMessage() async {
@@ -43,7 +40,7 @@ class _ChatBarWidgetState extends State<ChatBarWidget> {
     return Padding(
       padding: const EdgeInsets.all(8),
       child: FutureBuilder(
-        future: _getMultilineAllowed(),
+        future: _sharedObjects.multiline.get(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final multilineAllowed = snapshot.data! as bool;

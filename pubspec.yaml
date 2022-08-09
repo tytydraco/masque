@@ -16,7 +16,6 @@ dependencies:
   login_widget: ^1.0.1
   provider: ^6.0.3
   shared_objects: ^1.0.0+1
-  shared_preferences: ^2.0.15
   sp_settings: ^1.0.5
   url_launcher: ^6.1.3
 

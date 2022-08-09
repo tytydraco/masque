@@ -5,7 +5,7 @@ import 'package:login_widget/login_widget.dart';
 import 'package:masque/src/data/shared_objects.dart';
 import 'package:masque/src/models/session_model.dart';
 import 'package:masque/src/remote/database.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 /// A login widget using the [LoginWidget] package.
 class CustomLoginWidget extends StatefulWidget {
@@ -23,6 +23,8 @@ class CustomLoginWidget extends StatefulWidget {
 }
 
 class _CustomLoginWidgetState extends State<CustomLoginWidget> {
+  late final _sharedObjects = context.read<SharedObjects>();
+
   final _screenNameController = TextEditingController();
   final _roomIdController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -72,33 +74,17 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
   }
 
   Future<void> loadSavedLogin() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(SharedObjects.saveLoginPrefKey) ?? true) {
-      final screenName =
-          sharedPrefs.getString(SharedObjects.screenNamePrefKey) ?? '';
-      final roomId = sharedPrefs.getString(SharedObjects.roomIdPrefKey) ?? '';
-      _screenNameController.text = screenName;
-      _roomIdController.text = roomId;
+    if ((await _sharedObjects.saveLogin.get())!) {
+      _screenNameController.text = (await _sharedObjects.screenName.get())!;
+      _roomIdController.text = (await _sharedObjects.roomId.get())!;
     }
   }
 
   Future<void> setSavedLogin() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    if (sharedPrefs.getBool(SharedObjects.saveLoginPrefKey) ?? true) {
-      await sharedPrefs.setString(
-        SharedObjects.screenNamePrefKey,
-        _screenNameController.text,
-      );
-      await sharedPrefs.setString(
-        SharedObjects.roomIdPrefKey,
-        _roomIdController.text,
-      );
+    if ((await _sharedObjects.saveLogin.get())!) {
+      await _sharedObjects.screenName.set(_screenNameController.text);
+      await _sharedObjects.roomId.set(_roomIdController.text);
     }
-  }
-
-  Future<bool> getObscureRoomId() async {
-    final sharedPrefs = await SharedPreferences.getInstance();
-    return sharedPrefs.getBool(SharedObjects.obscureRoomIdPrefKey) ?? true;
   }
 
   @override
@@ -110,7 +96,7 @@ class _CustomLoginWidgetState extends State<CustomLoginWidget> {
       return Container(
         constraints: const BoxConstraints(maxWidth: 300),
         child: FutureBuilder(
-          future: getObscureRoomId(),
+          future: _sharedObjects.obscureRoomId.get(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               final obscure = snapshot.data! as bool;
