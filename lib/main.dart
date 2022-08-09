@@ -1,14 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:masque/firebase_options.dart';
+import 'package:masque/src/data/shared_objects.dart';
 import 'package:masque/src/screens/tab_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const Masque());
+  runApp(
+    Provider(
+      create: (_) => SharedObjects(),
+      child: const Masque(),
+    ),
+  );
 }
 
 /// The main client.
