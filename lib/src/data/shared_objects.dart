@@ -9,7 +9,7 @@ class SharedObjects {
   final screenName = SharedString('screen_name');
 
   /// The saved room id.
-  final roomId = SharedStringList('room_id');
+  final roomId = SharedString('room_id');
 
   /// Whether or not input should be limited to one line.
   final multiline = SharedBool('multiline');
