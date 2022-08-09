@@ -10,9 +10,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  final sharedObjects = SharedObjects();
+  await sharedObjects.setDefaultsIfNull();
+
   runApp(
-    Provider(
-      create: (_) => SharedObjects(),
+    Provider.value(
+      value: sharedObjects,
       child: const Masque(),
     ),
   );
