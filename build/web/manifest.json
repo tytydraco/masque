@@ -1,11 +1,11 @@
 {
-    "name": "Masque",
-    "short_name": "Masque",
+    "name": "masque",
+    "short_name": "masque",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "An anonymous chat client.",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
