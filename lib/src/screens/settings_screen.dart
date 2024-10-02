@@ -43,7 +43,7 @@ class SettingsScreen extends StatelessWidget {
               initialValue: true,
             ),
           ]),
-        )
+        ),
       ],
     );
   }

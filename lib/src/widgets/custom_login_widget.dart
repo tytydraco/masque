@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:login_widget/login_field_widget.dart';
-import 'package:login_widget/login_form_widget.dart';
 import 'package:login_widget/login_widget.dart';
 import 'package:masque/src/data/shared_objects.dart';
 import 'package:masque/src/models/session_model.dart';
@@ -11,8 +9,8 @@ import 'package:provider/provider.dart';
 class CustomLoginWidget extends StatefulWidget {
   /// Create a new [CustomLoginWidget] given an [onSubmit] callback.
   const CustomLoginWidget({
-    super.key,
     required this.onSubmit,
+    super.key,
   });
 
   /// Callback given a [SessionModel] once logged in.
