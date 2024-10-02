@@ -4,7 +4,7 @@ basil:
       - 'flutter build apk --release'
   build_web:
     cmds:
-      - 'flutter build web --release --web-renderer html --base-href "/build/web/"'
+      - 'flutter build web --release --web-renderer html --base-href "/masque/build/web/"'
   publish:
     cmds:
       - 'git add -f build/web/'
